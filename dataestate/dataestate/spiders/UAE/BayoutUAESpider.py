@@ -97,6 +97,15 @@ class BayoutUAESpider(Spider):
                 cb_kwargs={"city": kwargs.get("city"), "url": relative_url}
             )
 
+        next_page_url = resp.css("a[title=Next]::attr(href)").get()
+        if next_page_url:
+            yield Request(
+                url="http://quotes.toscrape.com",
+                callback=self.parse,
+                dont_filter=True,
+                cb_kwargs={"city": kwargs.get("city"), "url": f"https://{self.domain}{next_page_url}"}
+            )
+
     def parse_property_details(self, response, **kwargs):
         self.driver.get(kwargs.get("url"))
         sleep(2)
