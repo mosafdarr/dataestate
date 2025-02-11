@@ -36,12 +36,11 @@ def fetch_country_and_cities(country_name):
 
         # Format the output
         if result:
-            print(f"Country: {result[0][0]}")
-            print("Cities:")
-            for row in result:
-                print(f"- {row[1]}")
+            country = result[0][0]
+            cities = [row[1] for row in result]
+            return country, cities
         else:
-            print(f"No cities found for country: {country_name}")
+            return None, []
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(f"Error fetching data: {error}")
@@ -49,6 +48,3 @@ def fetch_country_and_cities(country_name):
         if connection:
             cursor.close()
             connection.close()
-
-# Example usage:
-fetch_country_and_cities('UAE')

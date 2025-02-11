@@ -7,6 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import logging
+
+logging.getLogger("selenium").setLevel(logging.WARNING)
+
 BOT_NAME = "dataestate"
 
 SPIDER_MODULES = ["dataestate.spiders"]
@@ -17,7 +21,7 @@ NEWSPIDER_MODULE = "dataestate.spiders"
 #USER_AGENT = "dataestate (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -90,3 +94,43 @@ ROBOTSTXT_OBEY = True
 # Set settings whose default value is deprecated to a future-proof value
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+
+# DOWNLOADER_MIDDLEWARES = {
+#     "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware": None,
+#     "scrapy_user_agents.middlewares.RandomUserAgentMiddleware": 400,
+#     "scrapy_splash.SplashCookiesMiddleware": 723,
+#     "scrapy_splash.SplashMiddleware": 725,
+#     "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware": 810,
+# }
+
+# SPIDER_MIDDLEWARES = {
+#     "scrapy_splash.SplashDeduplicateArgsMiddleware": 100,
+# }
+
+# DUPEFILTER_CLASS = "scrapy_splash.SplashAwareDupeFilter"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "custom_format": {
+            "format": "%(asctime)s [%(name)s] %(levelname)s: %(message)s",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "ERROR",  # Set the log level to ERROR or higher
+            "class": "logging.StreamHandler",
+            "formatter": "custom_format",
+        },
+    },
+    "loggers": {
+        "scrapy.core.scraper": {
+            "level": "ERROR",  # Set the log level for this specific logger
+            "handlers": ["console"],
+            "propagate": False,
+        },
+    },
+}
