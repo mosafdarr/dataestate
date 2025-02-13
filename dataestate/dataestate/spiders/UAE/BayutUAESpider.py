@@ -1,19 +1,15 @@
 from scrapy import Request, Spider, Selector
+from time import sleep
 
-from seleniumbase import Driver
 from selenium.webdriver import Chrome, ChromeOptions
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
-
-from time import sleep
 
 from ...utils import to_scrape_urls, scroll_down_page
 
 
-class BayoutUAESpider(Spider):
-    name = "BayoutUAESpider"
+class BayutUAESpider(Spider):
+    name = "BayutUAESpider"
 
     domain = "www.bayut.com"
     allowed_domains = ["www.bayut.com"]
